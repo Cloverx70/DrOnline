@@ -11,7 +11,9 @@ const NumberedBlock = ({ Number, Text, Description }: INumberedBlocks) => {
         <p className="absolute font-black text-6xl text-custom-primary 2xl:top-7 2xl:left-0 z-0">
           {Number}
         </p>
-        <p className=" text-custom-black text-2xl font-semibold z-50">{Text}</p>
+        <p className=" text-custom-black text-lg md:text-2xl font-semibold z-50">
+          {Text}
+        </p>
         <p className=" text-custom-black text-sm z-50">{Description}</p>
       </div>
     </div>

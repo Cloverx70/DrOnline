@@ -84,13 +84,10 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-        <div className="w-full min-h-[20%] flex-col flex lg:flex-row xl:flex-row 2xl:flex-row sm: items-center justify-center gap-10 z-30 lg:p-0 xl:p-0 2xl:p-0 p-5 bg-white">
+        <div className="w-full min-h-[20%] flex-col md:flex-row flex  items-center justify-center gap-10 z-30  p-5 bg-white">
           {specialties.map((s, i) => {
             return (
-              <div
-                key={i}
-                className="w-full lg:w-[20%] xl:w-[20%] 2xl:w-[20%]  h-full overflow-hidden "
-              >
+              <div key={i} className="w-full h-full overflow-hidden ">
                 <NumberedBlock
                   Number={s.number}
                   Text={s.text}
