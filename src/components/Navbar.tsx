@@ -11,9 +11,18 @@ import { IoMedicalOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { NavOptions } from "@/constants";
 import NavsheetOption from "./NavsheetOption";
+import type { User } from "@/api/auth";
 import { motion } from "framer-motion";
 
-const Navbar = () => {
+interface INavbarProps {
+  user: User;
+}
+
+const Navbar = ({ user }: INavbarProps) => {
+  const loginStatusNavOptions = user
+    ? NavOptions.filter((o) => o.label !== "Login")
+    : NavOptions.filter((o) => o.label !== "Your Studies");
+
   return (
     <div className="w-full h-auto p-5 md:p-7 font-lexend flex items-center justify-between">
       <Link to={"/"}>
@@ -30,8 +39,8 @@ const Navbar = () => {
         </motion.div>
       </Link>
 
-      <div className="hidden md:flex flex-1 text-custom-black items-center justify-end gap-10">
-        <ul className="flex items-center gap-6 font-lexend text-sm font-semibold">
+      <div className=" flex flex-1 text-custom-black items-center justify-end gap-10">
+        <ul className=" hidden md:visible md:flex items-center gap-6 font-lexend text-sm font-semibold">
           <Link to={"/fourms"}>
             <li className="cursor-pointer hover:text-custom-blue transition">
               Forums
@@ -58,51 +67,31 @@ const Navbar = () => {
               </div>
             </SheetTrigger>
 
-            <SheetContent className="bg-custom-primary flex flex-col">
-              <SheetHeader>
-                <SheetTitle className="text-2xl">Menu</SheetTitle>
+            <SheetContent className="px-7 w-[300px] md:w-[600px] lg:w-[700px] bg-custom-white flex flex-col gap-5 items-start font-lexend ">
+              <SheetHeader className="w-full flex flex-col gap-4">
+                <SheetTitle className="text-2xl">
+                  <input
+                    className="w-full border-b-2 py-3 border-custom-black outline-none rounded-none text-2xl md:text-3xl font-light placeholder:font-semibold text-custom-gray"
+                    placeholder="Search for..."
+                    type="text"
+                  />
+                </SheetTitle>
               </SheetHeader>
-
-              <div className="flex-1 pt-20">
-                {NavOptions.map((o, i) => (
-                  <NavsheetOption key={i} label={o.label} to={o.to} />
-                ))}
-              </div>
-
-              <div className="w-full p-5">
-                <button className="w-full h-9 rounded-sm font-light bg-custom-blue text-sm text-custom-primary hover:text-custom-black font-lexend cursor-pointer hover:bg-custom-white hover:shadow-lg transition-all ease-linear duration-100">
-                  Login
-                </button>
+              <div className=" flex flex-col gap-3 px-5">
+                <p className=" uppercase font-bold text-xs text-custom-gray">
+                  Navigation Bar
+                </p>
+                <div className="flex-1 flex flex-col items-start ">
+                  {loginStatusNavOptions.map((o, i) => (
+                    <div key={i} className="w-full  flex ">
+                      <NavsheetOption label={o.label} to={o.to} />
+                    </div>
+                  ))}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
         </div>
-      </div>
-
-      <div className="flex md:hidden items-center gap-4 text-custom-blue">
-        <CiSearch size={25} />
-        <Sheet>
-          <SheetTrigger>
-            <CiMenuBurger size={25} className="cursor-pointer" />
-          </SheetTrigger>
-          <SheetContent className="bg-custom-primary flex flex-col">
-            <SheetHeader>
-              <SheetTitle className="text-2xl">Menu</SheetTitle>
-            </SheetHeader>
-
-            <div className="flex-1 pt-20">
-              {NavOptions.map((o, i) => (
-                <NavsheetOption key={i} label={o.label} to={o.to} />
-              ))}
-            </div>
-
-            <div className="w-full p-5">
-              <button className="w-full h-9 rounded-sm font-light bg-custom-blue text-sm text-custom-primary hover:text-custom-black font-lexend cursor-pointer hover:bg-custom-white hover:shadow-lg transition-all ease-linear duration-100">
-                Login
-              </button>
-            </div>
-          </SheetContent>
-        </Sheet>
       </div>
     </div>
   );

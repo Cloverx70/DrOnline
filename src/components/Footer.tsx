@@ -12,14 +12,14 @@ const Footer = () => {
   p-20 
   grid 
   grid-cols-2 md:grid-cols-3 
-  gap-y-10    /* vertical spacing between rows */
+  gap-y-10    
   gap-2  
 "
     >
       <div className=" flex flex-col gap-5 text-center">
-        {FooterMainLinks.map((l) => {
+        {FooterMainLinks.map((l, i) => {
           return (
-            <div className=" flex items-center gap-2">
+            <div key={i} className=" flex items-center gap-2">
               <l.icon />
               <p className="underline text-xs">{l.label}</p>
             </div>
@@ -27,9 +27,9 @@ const Footer = () => {
         })}
       </div>
       <div className=" flex flex-col gap-5">
-        {FooterServiceLinks.map((l) => {
+        {FooterServiceLinks.map((l, i) => {
           return (
-            <div className=" flex items-center gap-2">
+            <div key={i} className=" flex items-center gap-2">
               <l.icon />
               <p className="underline text-xs">{l.label}</p>
             </div>

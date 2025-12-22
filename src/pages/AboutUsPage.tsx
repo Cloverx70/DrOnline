@@ -30,7 +30,7 @@ const AboutUsPage = () => {
           </p>
         </section>
 
-        <section className="py-20 px-10 grid grid-cols-1 md:grid-cols-2 gap-16">
+        <section className=" py-20 px-10 grid grid-cols-1 md:grid-cols-2 gap-16">
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}

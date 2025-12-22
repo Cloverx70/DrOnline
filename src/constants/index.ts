@@ -11,6 +11,12 @@ import { LuBrain, LuHeartPulse, LuStethoscope } from "react-icons/lu";
 import { LuBriefcaseMedical, LuClipboardList } from "react-icons/lu";
 
 import { FaUserDoctor } from "react-icons/fa6";
+import axios from "axios";
+
+export const AxiosInstace = axios.create({
+  withCredentials: true,
+  baseURL: "http://localhost:3000/",
+});
 
 export const specialties = [
   {
@@ -126,6 +132,18 @@ export const NavOptions = [
     label: "Emergency case",
     to: "/emergency",
   },
+  {
+    label: "Your Studies",
+    to: "/studies",
+  },
+  {
+    label: "Login",
+    to: "/login",
+  },
+  {
+    label: "Doctor Dashboard",
+    to: "/doctor-dashboard",
+  },
 ];
 
 export const Fourms = [
@@ -179,37 +197,6 @@ export const Fourms = [
   },
 ];
 
-export const Doctors = [
-  {
-    id: 1,
-    name: "Dr. Joe Johnson",
-    specialty: "Cardiologist",
-    image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7",
-    description:
-      "Expert in heart health and patient care with 10+ years experience.",
-  },
-  {
-    id: 2,
-    name: "Dr. Sarah Lee",
-    specialty: "Neurologist",
-    image:
-      "https://cdn.pixabay.com/photo/2024/01/11/06/27/ai-generated-8500905_960_720.jpg",
-    description:
-      "Specialist in neurological disorders and advanced treatments.",
-  },
-  {
-    id: 3,
-    name: "Dr. Lebron Davis",
-    specialty: "Pediatrician",
-    image: "https://images.unsplash.com/photo-1550831107-1553da8c8464",
-    description: "Dedicated to children’s health and family care.",
-  },
-  {
-    id: 4,
-    name: "Dr. Eva Smith",
-    specialty: "General Practitioner",
-    image:
-      "https://cdn.pixabay.com/photo/2022/06/14/12/48/doctor-7261806_960_720.jpg",
-    description: "Committed to providing high-quality care for all patients.",
-  },
-];
+export const NavbarDontRenderPaths = ["/", "/login", "/register"];
+
+export const FooterDontRenderPaths = ["/login", "/register"];

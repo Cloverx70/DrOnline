@@ -6,13 +6,15 @@ import Stehoscope from "./../../assets/Stehoscope.png";
 import femaleImage from "./../../assets/FemaleDr.png";
 import { motion } from "framer-motion";
 import { specialties } from "@/constants";
+import { useAuthStatus } from "@/hooks/useAuthStatus";
 import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { data: user } = useAuthStatus();
   return (
     <div className=" w-full flex flex-col h-screen bg-custom-primary">
-      <Navbar />
+      <Navbar user={user} />
 
       <div className=" h-full flex-1 flex flex-col">
         <div className="h-[80%] flex ">
