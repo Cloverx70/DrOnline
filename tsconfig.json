@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    // Environment & Module Settings
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+
+    // Type Checking
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+
+    // Outputs
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+
+    // Node.js + Express Types ❗ FIXES THE ERROR ❗
+    "types": ["node", "express"],
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+
+    // Optional / Style
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
