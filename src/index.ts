@@ -17,12 +17,17 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+
 app.use(
   cors({
     origin: process.env.FRONTEND_ORIGIN,
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
+
+app.options("*", cors()); // 🔥 THIS FIXES PENDING POSTs
+
 app.use(cookieParser());
 app.use(passport.initialize());
 
@@ -36,5 +41,5 @@ app.use("/studies", studyRoutes);
 app.use("/mail", mailRoutes);
 
 app.listen(3000, () => {
-  console.log(`Server running on http://localhost:3000`);
+  console.log("Server running on port 3000");
 });
