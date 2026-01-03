@@ -27,9 +27,9 @@ export const login = async (req: Request, res: Response) => {
   });
 
   res.cookie("chiah_token", token, {
-    httpOnly: true,
-    sameSite: "strict",
-    secure: false,
+    httpOnly: false, // if frontend needs JS access
+    secure: true, // must be true for cross-site cookies on HTTPS
+    sameSite: "none", // allows cross-site usage
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -38,9 +38,9 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = (req: Request, res: Response) => {
   res.clearCookie("chiah_token", {
-    httpOnly: true,
-    secure: false,
-    sameSite: "strict",
+    httpOnly: false,
+    secure: true,
+    sameSite: "none",
   });
 
   return res.status(200).json({ message: "Logged out" });
