@@ -55,71 +55,78 @@ const DoctorDashboardPage = () => {
   }
 
   return (
-    <section className="w-full min-h-screen flex flex-col items-center p-10 gap-7 font-lexend">
-      {/* Header */}
-      <div className="flex items-center justify-between w-full gap-3 mb-10">
-        <h1 className="text-4xl font-bold">Doctor Dashboard</h1>
-        <div className="flex gap-5">
-          {/* Create Study */}
-          <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-            <DialogTrigger asChild>
-              <Button className="bg-custom-blue text-white hover:bg-custom-gray">
-                Create Study
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Create a new study</DialogTitle>
-              </DialogHeader>
-              <CreateStudy setCreateOpen={setIsCreateOpen} />
-            </DialogContent>
-          </Dialog>
-        </div>
-      </div>
-
-      {/* Studies List */}
-      <div className="w-full h-[500px] overflow-y-auto flex flex-col gap-5">
-        {doctor && doctor.studies.length > 0 ? (
-          doctor.studies.map((study) => (
-            <Dialog
-              key={study.id}
-              open={openDialogId === study.id}
-              onOpenChange={(open) => setOpenDialogId(open ? study.id : null)}
-            >
+    <>
+      <head>
+        <title>Doctor dashboard</title>
+      </head>
+      <section className="w-full min-h-screen flex flex-col items-center p-10 gap-7 font-lexend">
+        {/* Header */}
+        <div className="flex items-center justify-between w-full gap-3 mb-10">
+          <h1 className="text-4xl font-bold">Doctor Dashboard</h1>
+          <div className="flex gap-5">
+            {/* Create Study */}
+            <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
               <DialogTrigger asChild>
-                <div className="border p-4 rounded-xl flex flex-col gap-1 hover:shadow-lg transition cursor-pointer">
-                  <p className="font-semibold text-2xl">{study.title}</p>
-                  <p className="text-sm text-custom-gray">
-                    {study.description}
-                  </p>
-                  <span className="text-xs font-semibold uppercase text-custom-black">
-                    {study.status.replace("_", " ")}
-                  </span>
-                  {study.dueDate && (
-                    <p className="text-xs text-custom-gray">
-                      Due: {new Date(study.dueDate).toLocaleDateString()}
-                    </p>
-                  )}
-                </div>
+                <Button className="bg-custom-blue text-white hover:bg-custom-gray">
+                  Create Study
+                </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Edit Study</DialogTitle>
+                  <DialogTitle>Create a new study</DialogTitle>
                 </DialogHeader>
-                <EditStudy
-                  sid={study.id}
-                  setEditOpen={() => setOpenDialogId(null)}
-                />
+                <CreateStudy setCreateOpen={setIsCreateOpen} />
               </DialogContent>
             </Dialog>
-          ))
-        ) : (
-          <div className="w-full h-[400px] flex items-center justify-center">
-            <p className="text-sm text-custom-gray">No studies created yet.</p>
           </div>
-        )}
-      </div>
-    </section>
+        </div>
+
+        {/* Studies List */}
+        <div className="w-full h-[500px] overflow-y-auto flex flex-col gap-5">
+          {doctor && doctor.studies.length > 0 ? (
+            doctor.studies.map((study) => (
+              <Dialog
+                key={study.id}
+                open={openDialogId === study.id}
+                onOpenChange={(open) => setOpenDialogId(open ? study.id : null)}
+              >
+                <DialogTrigger asChild>
+                  <div className="border p-4 rounded-xl flex flex-col gap-1 hover:shadow-lg transition cursor-pointer">
+                    <p className="font-semibold text-2xl">{study.title}</p>
+                    <p className="text-sm text-custom-gray">
+                      {study.description}
+                    </p>
+                    <span className="text-xs font-semibold uppercase text-custom-black">
+                      {study.status.replace("_", " ")}
+                    </span>
+                    {study.dueDate && (
+                      <p className="text-xs text-custom-gray">
+                        Due: {new Date(study.dueDate).toLocaleDateString()}
+                      </p>
+                    )}
+                  </div>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Edit Study</DialogTitle>
+                  </DialogHeader>
+                  <EditStudy
+                    sid={study.id}
+                    setEditOpen={() => setOpenDialogId(null)}
+                  />
+                </DialogContent>
+              </Dialog>
+            ))
+          ) : (
+            <div className="w-full h-[400px] flex items-center justify-center">
+              <p className="text-sm text-custom-gray">
+                No studies created yet.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 };
 
