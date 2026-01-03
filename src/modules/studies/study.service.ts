@@ -33,16 +33,16 @@ export class StudyService {
         doctor,
       });
 
-      await sendMail({
-        to: patient.email,
-        subject: createStudyDto.title,
-        html: patientMessageEmail({
-          name: patient.username,
-          email: patient.email,
-          subject: newStudy.title,
-          message: newStudy.instructions!,
-        }),
-      });
+      // await sendMail({
+      //   to: patient.email,
+      //   subject: createStudyDto.title,
+      //   html: patientMessageEmail({
+      //     name: patient.username,
+      //     email: patient.email,
+      //     subject: newStudy.title,
+      //     message: newStudy.instructions!,
+      //   }),
+      // });
 
       await this.StudytRepo.save(newStudy);
 
