@@ -20,7 +20,11 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  const token = authService.generateJWT(req.user?.id);
+  const user = req.user as any;
+
+  const token = authService.generateJWT({
+    id: user.id,
+  });
 
   res.cookie("chiah_token", token, {
     httpOnly: true,
@@ -29,37 +33,28 @@ export const login = async (req: Request, res: Response) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
-  res.json({ message: "logged in successfully" });
+  return res.json({ message: "logged in successfully" });
+};
+
+export const logout = (req: Request, res: Response) => {
+  res.clearCookie("chiah_token", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "strict",
+  });
+
+  return res.status(200).json({ message: "Logged out" });
 };
 
 export const getStatus = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id;
-
-    const user = await AppDataSource.getRepository(User).findOne({
-      where: { id: userId! },
-      select: [
-        "id",
-        "firstname",
-        "lastname",
-        "email",
-        "username",
-        "role",
-        "createdAt",
-        "updatedAt",
-      ],
-    });
-
-    if (!user) return res.status(404).json({ message: "User not found" });
-    if (user.role === "doctor") {
-      const doctor = await AppDataSource.getRepository(Doctor).findOne({
-        where: { user: { id: userId! } },
-        relations: ["user"],
-      });
-
-      return res.json({ ...user, doctor });
+    if (!req.user) {
+      return res.status(401).json({ message: "Unauthorized" });
     }
-    res.json(user);
+
+    const user = req.user as User;
+
+    return res.status(200).json(user);
   } catch (error) {
     handleError(error);
   }

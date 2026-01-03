@@ -33,10 +33,11 @@ export const getDoctorById = async (req: Request, res: Response) => {
 
 export const getAllPatients = async (req: Request, res: Response) => {
   try {
+    console.log("hiiiiiiiiiiiiii");
+
     const response = await doctorService.getAllPatients();
-    return res
-      .status(response?.code!)
-      .json({ message: response?.message, data: response?.data });
+
+    return res.status(response?.code!).json(response);
   } catch (error) {
     handleError(error);
   }

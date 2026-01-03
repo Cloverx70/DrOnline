@@ -1,4 +1,4 @@
-import { getStatus, login, register } from "./auth.controller.js";
+import { getStatus, login, logout, register } from "./auth.controller.js";
 
 import { Router } from "express";
 import passport from "passport";
@@ -14,6 +14,8 @@ router.post(
   passport.authenticate("local", { session: false }),
   login
 );
+
+router.post("/logout", logout);
 
 router.get(
   "/status",

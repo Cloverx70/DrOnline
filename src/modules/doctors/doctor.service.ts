@@ -46,7 +46,7 @@ export class DoctorService {
   async getAllPatients() {
     try {
       const patients = await this.UserRepo.find({ where: { role: "patient" } });
-      console.log(patients);
+
       return NewResponse(200, "Success", patients);
     } catch (error) {
       handleError(error);

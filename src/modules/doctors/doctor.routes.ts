@@ -9,7 +9,7 @@ import { Router } from "express";
 const router = Router();
 
 router.get("/all", getAllDoctors);
-router.get("/:id", getDoctorById);
 router.get("/get-all-patients", getAllPatients);
+router.get("/:id", getDoctorById);
 
 export default router;

@@ -33,7 +33,6 @@ export class User {
   username: string;
 
   @Column({ unique: true })
-  @Index()
   email: string;
 
   @Column()
