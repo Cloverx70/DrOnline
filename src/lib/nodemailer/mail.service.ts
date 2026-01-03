@@ -9,10 +9,18 @@ export const sendMail = async ({
   subject: string;
   html: string;
 }) => {
-  await transporter.sendMail({
-    from: `"DrOnline" <${process.env.SMTP_USER}>`,
-    to,
-    subject,
-    html,
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(
+      {
+        from: `"DrOnline" <${process.env.SMTP_USER}>`,
+        to,
+        subject,
+        html,
+      },
+      (err, info) => {
+        if (err) reject(err);
+        resolve(info);
+      }
+    );
   });
 };
