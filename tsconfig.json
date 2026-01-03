@@ -17,13 +17,14 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
+    "outDir": "dist",
+    "rootDir": "src",
 
     // Outputs
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "allowImportingTsExtensions": true,
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": false,
 
     // Node.js + Express Types ❗ FIXES THE ERROR ❗
     "types": ["node", "express"],
