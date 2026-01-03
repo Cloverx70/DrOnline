@@ -1,4 +1,9 @@
-import { transporter } from "./mailer.js";
+import { Resend } from "resend";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const resend = new Resend(process.env.RESEND_API_TOKEN);
 
 export const sendMail = async ({
   to,
@@ -9,18 +14,10 @@ export const sendMail = async ({
   subject: string;
   html: string;
 }) => {
-  await new Promise((resolve, reject) => {
-    transporter.sendMail(
-      {
-        from: `"DrOnline" <${process.env.SMTP_USER}>`,
-        to,
-        subject,
-        html,
-      },
-      (err, info) => {
-        if (err) reject(err);
-        resolve(info);
-      }
-    );
+  await resend.emails.send({
+    from: `"DrOnline" <${process.env.SMTP_USER}>`,
+    to,
+    subject,
+    html,
   });
 };
