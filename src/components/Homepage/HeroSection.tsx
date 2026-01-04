@@ -20,10 +20,10 @@ const HeroSection = () => {
         <div className="h-[80%] flex ">
           <div className="relative w-1/2 h-full items-center justify-center ">
             <div className=" w-full h-full flex items-center justify-center">
-              <div className="w-3/4 h-full flex flex-col gap-5 items-start justify-center text-custom-black">
+              <div className="w-3/4 h-full flex flex-col gap-5 items-start justify-center p-1 z-50 text-custom-black">
                 <SplitText
                   text="Your Health, Connected."
-                  className="text-3xl 2xl:text-6xl lg:text-6xl md:text-5xl sm:text-4xl font-bold z-50"
+                  className="text-3xl 2xl:text-6xl lg:text-6xl md:text-5xl sm:text-4xl font-bold"
                   delay={100}
                   duration={0.4}
                   ease="power3.out"
@@ -50,7 +50,7 @@ const HeroSection = () => {
                     triggerOnHover={true}
                     respectReducedMotion={true}
                     textAlign="start"
-                    className=" text-xs 2xl:text-xl xl:text-xl lg:text-sm md:text-sm sm:text-xs font-lexend font-light lowercase"
+                    className=" text-xs 2xl:text-xl xl:text-xl lg:text-sm md:text-sm sm:text-xs font-lexend font-light lowercase z-50"
                   />
                 </div>
 
@@ -64,7 +64,7 @@ const HeroSection = () => {
               <div className=" absolute w-[200px] h-[200px] 2xl:w-[600px] 2xl:h-[600px] xl:w-[600px] xl:h-[600px] lg:w-[600px] lg:h-[600px] -bottom-20 -left-6 2xl:-bottom-94 2xl:-left-20 xl:-bottom-94 xl:-left-20 lg:-bottom-94 lg:-left-20  rotate-20 z-0">
                 <img src={Stehoscope} alt="" />
               </div>
-              <div className="absolute w-[70px] h-[70px] -left-5 top-30 z-10 bg-custom-beige rounded-full" />
+              <div className="absolute w-[70px] h-[70px] -left-5 top-30 z-0 bg-custom-beige rounded-full" />
             </div>
           </div>
           <div className="relative h-full w-1/2 flex items-end justify-center overflow-hidden">
@@ -86,10 +86,10 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-        <div className="w-full min-h-[20%] flex-col md:flex-row flex  items-center justify-center gap-10 z-30  p-5 bg-white">
+        <div className="w-full flex-1 flex-col md:flex-row flex  items-center justify-center gap-10 z-30  p-5 bg-white">
           {specialties.map((s, i) => {
             return (
-              <div key={i} className="w-full h-full overflow-hidden ">
+              <div key={i} className="w-full overflow-hidden ">
                 <NumberedBlock
                   Number={s.number}
                   Text={s.text}

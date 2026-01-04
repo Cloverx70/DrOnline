@@ -13,10 +13,10 @@ const HomePage = () => {
       <head>
         <title>Home</title>
       </head>
-      <section className="w-full min-h-screen overflow-x-hidden overflow-y-auto  bg-white  text-custom-white font-lexend">
+      <section className="w-full h-auto overflow-x-hidden overflow-y-auto  bg-white  text-custom-white font-lexend">
         <HeroSection />
 
-        <div className=" relative w-full h-[150vh] md:h-[70vh] lg:h-auto xl:h-auto 2xl:h-auto flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row items-center justify-center gap-10 sm:gap-12 lg:gap-14 p-5 bg-white  ">
+        <div className="mt-48 relative w-full flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row items-center justify-center gap-10 sm:gap-12 lg:gap-14 p-5 bg-white  ">
           {" "}
           <motion.div
             initial={{ scale: 1.25 }}

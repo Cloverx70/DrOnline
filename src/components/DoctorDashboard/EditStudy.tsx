@@ -113,8 +113,6 @@ const EditStudy = ({ sid, setEditOpen }: EditStudyProps) => {
           : "",
         status: study.status,
       });
-
-      console.log(study);
     }
   }, [study, form]);
 

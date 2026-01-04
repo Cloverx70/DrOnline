@@ -48,7 +48,6 @@ export interface IUpdateStudyDto {
 
 export const createStudy = async (pid: string, studyDto: ICreateStudyDto) => {
   try {
-    console.log(studyDto);
     const res = await AxiosInstace.post(`/studies/create/${pid}`, studyDto);
 
     if (res.status !== 201)

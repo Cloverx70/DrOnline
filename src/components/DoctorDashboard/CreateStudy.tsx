@@ -20,7 +20,7 @@ import { GetAllPatients } from "@/api/doctor";
 import Spinner from "../Spinner";
 import { createStudy } from "@/api/study";
 import toaster from "../Toaster";
-import React, { useEffect, type SetStateAction } from "react";
+import React, { type SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -57,10 +57,6 @@ const CreateStudy = ({ setCreateOpen }: CreateStudyProps) => {
     queryKey: ["ALL-PATIENTS"],
     queryFn: () => GetAllPatients(),
   });
-
-  useEffect(() => {
-    console.log(ALLPATIENTS);
-  }, [ALLPATIENTS]);
 
   const { mutate: CreateStudyMutation, isPending } = useMutation({
     mutationFn: async (data: CreateStudyInputs) =>

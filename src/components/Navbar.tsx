@@ -119,7 +119,11 @@ const Navbar = ({ user }: INavbarProps) => {
                 </p>
                 <div className="flex-1 flex flex-col items-start">
                   {doctorStatusNavOptions.map((o, i) => (
-                    <div key={i} className="w-full  flex">
+                    <div
+                      key={i}
+                      onClick={() => setNavOpen(false)}
+                      className="w-full  flex"
+                    >
                       <NavsheetOption label={o.label} to={o.to} />
                     </div>
                   ))}

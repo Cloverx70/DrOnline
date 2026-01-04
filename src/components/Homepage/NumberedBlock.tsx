@@ -6,7 +6,7 @@ interface INumberedBlocks {
 
 const NumberedBlock = ({ Number, Text, Description }: INumberedBlocks) => {
   return (
-    <div className=" w-full h-full p-4 relative font-lexend flex items-center justify-center flex-col">
+    <div className=" w-full relative font-lexend flex items-center justify-center flex-col">
       <div className="w-full h-full flex items-start justify-center flex-col">
         <p className="absolute font-black text-6xl text-custom-primary 2xl:top-7 2xl:left-0 z-0">
           {Number}

@@ -1,3 +1,4 @@
+import { FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import {
   Form,
   FormControl,
@@ -9,28 +10,38 @@ import { IoIosMail, IoMdPerson } from "react-icons/io";
 import { IoLogoGoogle, IoMedicalOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router";
 
-import { FaLock } from "react-icons/fa";
 import { PiDoorBold } from "react-icons/pi";
-import { Register } from "@/api/auth"; // Your register API function
+import { Register } from "@/api/auth";
 import Spinner from "@/components/Spinner";
 import toaster from "@/components/Toaster";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// Zod schema
-export const RegisterSchema = z.object({
-  firstname: z.string().min(2, "First name is required"),
-  lastname: z.string().min(2, "Last name is required"),
-  username: z.string().min(3, "Username is required"),
-  email: z.string().email("Invalid email"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
+/* -------------------- ZOD SCHEMA -------------------- */
+export const RegisterSchema = z
+  .object({
+    firstname: z.string().min(2, "First name is required"),
+    lastname: z.string().min(2, "Last name is required"),
+    username: z.string().min(3, "Username is required"),
+    email: z.string().email("Invalid email"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Passwords do not match",
+  });
+
+type RegisterInputs = z.infer<typeof RegisterSchema>;
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  type RegisterInputs = z.infer<typeof RegisterSchema>;
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const RegisterForm = useForm<RegisterInputs>({
     resolver: zodResolver(RegisterSchema),
@@ -40,6 +51,7 @@ const RegisterPage = () => {
       username: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
@@ -53,22 +65,21 @@ const RegisterPage = () => {
         data.password
       ),
     onSuccess: () => {
-      navigate("/login");
       toaster("Success", "Registered successfully. Please login!");
+      navigate("/login");
     },
-    onError: (e) => {
+    onError: (e: Error) => {
       toaster("Error", e.message);
-      RegisterForm.reset();
     },
   });
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center font-lexend">
-      <Link to={"/"}>
-        {" "}
-        <div className="absolute flex items-center justify-center gap-3 top-1 left-1 p-5 text-custom-blue">
-          <IoMedicalOutline size={38} className="min-w-[38px]" />
-          <p className="text-2xl md:text-3xl font-sendflowers font-bold whitespace-nowrap">
+    <section className="relative min-h-screen flex items-center justify-center font-lexend px-4">
+      {/* LOGO */}
+      <Link to="/">
+        <div className="absolute top-2 left-2 flex items-center gap-3 p-4 text-custom-blue">
+          <IoMedicalOutline size={36} />
+          <p className="text-2xl md:text-3xl font-sendflowers font-bold">
             Dr.Online
           </p>
         </div>
@@ -77,120 +88,64 @@ const RegisterPage = () => {
       <Form {...RegisterForm}>
         <form
           onSubmit={RegisterForm.handleSubmit((data) => RegisterMutate(data))}
-          className="w-full flex items-center justify-center"
+          className="w-full flex justify-center"
         >
-          <div className="w-[30%] bg-custom-white shadow-2xl rounded-xl z-20 flex flex-col items-center justify-center py-10">
-            <div className="w-full flex flex-col items-center justify-center gap-3">
-              <div className="w-full flex items-center justify-center">
-                <div className="w-20 h-20 flex items-center justify-center rounded-full bg-custom-primary">
-                  <PiDoorBold size={40} color="204389" />
-                </div>
+          <div className="w-full max-w-md md:max-w-lg xl:max-w-xl bg-custom-white shadow-2xl rounded-xl flex flex-col items-center py-8">
+            {/* HEADER */}
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-20 h-20 flex items-center justify-center rounded-full bg-custom-primary">
+                <PiDoorBold size={40} />
               </div>
-              <div className="w-full flex flex-col items-center justify-center gap-1">
-                <p className="text-4xl text-center">Register an account</p>
-                <p className="text-sm text-custom-gray">
-                  Join Dr.Online and start managing your appointments.
-                </p>
-              </div>
+              <p className="text-3xl md:text-4xl text-center">
+                Register an account
+              </p>
+              <p className="text-sm text-custom-gray text-center px-6">
+                Join Dr.Online and start managing your appointments.
+              </p>
             </div>
 
-            <div className="w-full flex flex-col gap-5 p-10">
-              {/* Firstname */}
-              <FormField
-                control={RegisterForm.control}
-                name="firstname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="relative flex items-center justify-start">
-                        <IoMdPerson
-                          size={25}
-                          color="#6a7282"
-                          className="absolute left-4"
-                        />
-                        <input
-                          type="text"
-                          placeholder="First Name"
-                          {...field}
-                          className="w-full bg-gray-200 focus:bg-gray-300 outline-none rounded-2xl text-custom-black py-3 px-12"
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            {/* FORM */}
+            <div className="w-full flex flex-col gap-4 px-6 md:px-10 mt-6">
+              {[
+                { name: "firstname", placeholder: "First Name" },
+                { name: "lastname", placeholder: "Last Name" },
+                { name: "username", placeholder: "Username" },
+              ].map(({ name, placeholder }) => (
+                <FormField
+                  key={name}
+                  control={RegisterForm.control}
+                  name={name as keyof RegisterInputs}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="relative">
+                          <IoMdPerson className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                          <input
+                            {...field}
+                            placeholder={placeholder}
+                            className="w-full bg-gray-200 focus:bg-gray-300 rounded-2xl py-3 pl-12 outline-none"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ))}
 
-              {/* Lastname */}
-              <FormField
-                control={RegisterForm.control}
-                name="lastname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="relative flex items-center justify-start">
-                        <IoMdPerson
-                          size={25}
-                          color="#6a7282"
-                          className="absolute left-4"
-                        />
-                        <input
-                          type="text"
-                          placeholder="Last Name"
-                          {...field}
-                          className="w-full bg-gray-200 focus:bg-gray-300 outline-none rounded-2xl text-custom-black py-3 px-12"
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Username */}
-              <FormField
-                control={RegisterForm.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="relative flex items-center justify-start">
-                        <IoMdPerson
-                          size={25}
-                          color="#6a7282"
-                          className="absolute left-4"
-                        />
-                        <input
-                          type="text"
-                          placeholder="Username"
-                          {...field}
-                          className="w-full bg-gray-200 focus:bg-gray-300 outline-none rounded-2xl text-custom-black py-3 px-12"
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Email */}
+              {/* EMAIL */}
               <FormField
                 control={RegisterForm.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="relative flex items-center justify-start">
-                        <IoIosMail
-                          size={25}
-                          color="#6a7282"
-                          className="absolute left-4"
-                        />
+                      <div className="relative">
+                        <IoIosMail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
                         <input
-                          type="text"
-                          placeholder="Email"
                           {...field}
-                          className="w-full bg-gray-200 focus:bg-gray-300 outline-none rounded-2xl text-custom-black py-3 px-12"
+                          placeholder="Email"
+                          className="w-full bg-gray-200 focus:bg-gray-300 rounded-2xl py-3 pl-12 outline-none"
                         />
                       </div>
                     </FormControl>
@@ -199,25 +154,57 @@ const RegisterPage = () => {
                 )}
               />
 
-              {/* Password */}
+              {/* PASSWORD */}
               <FormField
                 control={RegisterForm.control}
                 name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="relative flex items-center justify-start">
-                        <FaLock
-                          size={20}
-                          color="#6a7282"
-                          className="absolute left-4"
-                        />
+                      <div className="relative">
+                        <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
                         <input
-                          type="password"
-                          placeholder="Password"
                           {...field}
-                          className="w-full bg-gray-200 focus:bg-gray-300 outline-none rounded-2xl text-custom-black py-3 px-12"
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Password"
+                          className="w-full bg-gray-200 focus:bg-gray-300 rounded-2xl py-3 pl-12 pr-12 outline-none"
                         />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((p) => !p)}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600"
+                        >
+                          {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* CONFIRM PASSWORD */}
+              <FormField
+                control={RegisterForm.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="relative">
+                        <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                        <input
+                          {...field}
+                          type={showConfirmPassword ? "text" : "password"}
+                          placeholder="Confirm Password"
+                          className="w-full bg-gray-200 focus:bg-gray-300 rounded-2xl py-3 pl-12 pr-12 outline-none"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowConfirmPassword((p) => !p)}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600"
+                        >
+                          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -226,10 +213,11 @@ const RegisterPage = () => {
               />
             </div>
 
-            <div className="px-10 flex flex-col gap-5 items-center justify-center w-full">
+            {/* ACTIONS */}
+            <div className="w-full px-6 md:px-10 mt-6 flex flex-col gap-4">
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-2xl bg-custom-blue hover:bg-gray-200 hover:text-custom-black transition-all ease-linear text-custom-white cursor-pointer"
+                className="w-full py-2.5 rounded-2xl bg-custom-blue text-white hover:bg-gray-200 hover:text-black transition"
               >
                 {isPending ? <Spinner /> : "Register"}
               </button>
@@ -238,9 +226,16 @@ const RegisterPage = () => {
                 Or sign up with
               </p>
 
-              <button className="w-fit px-10 py-2.5 rounded-xl bg-custom-white text-custom-blue hover:bg-custom-blue hover:text-custom-white transition-all ease-linear shadow-lg cursor-pointer">
-                <IoLogoGoogle size={25} />
+              <button className="mx-auto px-10 py-2.5 rounded-xl shadow-lg hover:bg-custom-blue hover:text-white transition">
+                <IoLogoGoogle size={24} />
               </button>
+
+              <Link
+                to="/login"
+                className="text-sm text-center text-custom-blue"
+              >
+                Already have an account? Login
+              </Link>
             </div>
           </div>
         </form>

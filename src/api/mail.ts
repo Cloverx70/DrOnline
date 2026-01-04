@@ -11,7 +11,6 @@ export const SendPatientMessage = async (
 ) => {
   try {
     if (!doctorEmail) {
-      console.log("no dcotor email");
       return;
     }
 

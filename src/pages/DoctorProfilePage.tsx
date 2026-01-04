@@ -76,18 +76,18 @@ const DoctorProfilePage = () => {
     );
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-center justify-start font-lexend py-10">
+    <section className="w-full min-h-screen flex flex-col items-center justify-start font-lexend py-10 px-4 sm:px-6 md:px-10 lg:px-20">
       {/* Doctor Header */}
-      <div className="flex items-center gap-3 mb-10">
-        <h1 className="text-5xl font-bold">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10 w-full">
+        <h1 className="text-3xl sm:text-5xl font-bold">
           {doctor?.user.firstname} {doctor?.user.lastname}
         </h1>
       </div>
 
       {/* Doctor Info */}
-      <div className="w-[50%] bg-custom-white shadow-2xl rounded-xl p-8 flex flex-col gap-5">
-        <div className="w-full  flex items-center gap-5">
-          <div className="w-25 h-25 flex items-center justify-center border-4 border-custom-blue rounded-full overflow-hidden bg-custom-primary">
+      <div className="w-full max-w-4xl bg-custom-white shadow-2xl rounded-xl p-6 sm:p-8 flex flex-col gap-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+          <div className="w-32 h-32 sm:w-36 sm:h-36 shrink-0 border-4 border-custom-blue rounded-full overflow-hidden bg-custom-primary">
             <img
               src={doctor?.pfpURL}
               alt={doctor?.user.firstname}
@@ -95,7 +95,7 @@ const DoctorProfilePage = () => {
             />
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             <p className="text-lg font-semibold">
               Specialization: {doctor?.specialization}
             </p>
@@ -116,8 +116,8 @@ const DoctorProfilePage = () => {
         </div>
 
         {/* Doctor Studies */}
-        <h2 className="text-xl font-semibold mb-3">Assigned Studies</h2>
-        <div className=" overflow-y-auto h-96">
+        <h2 className="text-xl font-semibold">Assigned Studies</h2>
+        <div className="max-h-96 sm:max-h-80 md:max-h-96 overflow-y-auto">
           {doctor?.studies.length === 0 ? (
             <p className="text-sm text-custom-gray">No studies assigned yet.</p>
           ) : (
@@ -150,7 +150,7 @@ const DoctorProfilePage = () => {
           <DialogTrigger className="w-full py-2 bg-custom-black text-custom-primary rounded-lg hover:bg-gray-300 hover:text-custom-black transition-all ease-linear duration-150">
             Get in Touch
           </DialogTrigger>
-          <DialogContent className="sm:max-w-lg">
+          <DialogContent className="sm:max-w-lg w-full">
             <DialogHeader>
               <DialogTitle className=" text-sm">
                 Send an email, and the doctor will reply shortly.
@@ -161,42 +161,23 @@ const DoctorProfilePage = () => {
               onSubmit={handleSubmit((data) => SendMessageToDr(data))}
               className="flex flex-col gap-4 mt-4"
             >
-              <div className="flex flex-col gap-1">
-                <label htmlFor="name" className="text-sm font-semibold">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  {...register("name")}
-                  className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-custom-primary"
-                  placeholder="Your Name"
-                />
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <label htmlFor="email" className="text-sm font-semibold">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  {...register("email")}
-                  className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-custom-primary"
-                  placeholder="Your Email"
-                />
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <label htmlFor="subject" className="text-sm font-semibold">
-                  Subject
-                </label>
-                <input
-                  id="subject"
-                  {...register("subject")}
-                  className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-custom-primary"
-                  placeholder="Subject"
-                />
-              </div>
+              {["name", "email", "subject"].map((field) => (
+                <div key={field} className="flex flex-col gap-1">
+                  <label
+                    htmlFor={field}
+                    className="text-sm font-semibold capitalize"
+                  >
+                    {field}
+                  </label>
+                  <input
+                    id={field}
+                    type={field === "email" ? "email" : "text"}
+                    {...register(field as keyof ContactFormInputs)}
+                    className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-custom-primary"
+                    placeholder={`Your ${field}`}
+                  />
+                </div>
+              ))}
 
               <div className="flex flex-col gap-1">
                 <label htmlFor="message" className="text-sm font-semibold">
