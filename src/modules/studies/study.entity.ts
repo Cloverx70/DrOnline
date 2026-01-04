@@ -7,7 +7,6 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import type { Doctor } from "../doctors/doctor.entity";
 import { User } from "../auth/user.entity.js";
 
 export enum StudyStatus {
@@ -28,7 +27,7 @@ export class Study {
   @ManyToOne(() => User, (user) => user.receivedStudies, { eager: true })
   patient: User;
 
-  @Column()
+  @Column({ type: "varchar" })
   title: string;
 
   @Column({ type: "text" })
@@ -36,9 +35,6 @@ export class Study {
 
   @Column({ type: "text", nullable: true })
   instructions?: string;
-
-  @Column({ nullable: true })
-  attachmentUrl?: string;
 
   @Column({
     type: "enum",

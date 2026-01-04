@@ -24,7 +24,6 @@ export class StudyService {
       patient = await this.UserRepo.findOne({
         where: { id: pid, role: "patient" },
       });
-      console.log(uid);
       if (!patient) return NewResponse(404, "patient not found");
 
       const newStudy = this.StudytRepo.create({

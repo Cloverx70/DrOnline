@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import "./modules/auth/strategies/local.strategy.js";
 import "./modules/auth/strategies/jwt.strategy.js";
 

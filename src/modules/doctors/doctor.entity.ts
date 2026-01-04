@@ -20,19 +20,19 @@ export class Doctor {
   @JoinColumn()
   user: User;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "varchar" })
   pfpURL: string;
 
-  @Column()
+  @Column({ type: "varchar" })
   specialization: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "varchar" })
   bio?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "int" })
   yearsOfExperience?: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "varchar" })
   clinicName?: string;
 
   @OneToMany(() => Study, (study) => study.doctor)

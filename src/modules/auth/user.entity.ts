@@ -9,7 +9,6 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import { Doctor } from "../doctors/doctor.entity.js";
 import { Study } from "../studies/study.entity.js";
 
 @Entity()
@@ -23,19 +22,19 @@ export class User {
   @OneToMany(() => Study, (study) => study.patient)
   receivedStudies: Study[];
 
-  @Column()
+  @Column({ type: "varchar" })
   firstname: string;
 
-  @Column()
+  @Column({ type: "varchar" })
   lastname: string;
 
-  @Column({ unique: true })
+  @Column({ type: "varchar" })
   username: string;
 
-  @Column({ unique: true })
+  @Column({ type: "varchar" })
   email: string;
 
-  @Column()
+  @Column({ type: "varchar" })
   password: string;
 
   @Column({

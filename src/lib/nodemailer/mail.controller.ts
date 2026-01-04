@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 
 import { patientMessageEmail } from "./EmailTemplates/PatientMessageEmail.template.js";
-import { transporter } from "./mailer.js";
+import { sendMail } from "./mail.service.js";
 
 export const sendPatientMessage = async (req: Request, res: Response) => {
   try {
@@ -11,10 +11,8 @@ export const sendPatientMessage = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    await transporter.sendMail({
-      from: `"Doctor Online" <${process.env.SMTP_USER}>`,
+    await sendMail({
       to: doctorEmail,
-      replyTo: email,
       subject,
       html: patientMessageEmail({ name, email, subject, message }),
     });

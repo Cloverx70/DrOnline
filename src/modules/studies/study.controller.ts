@@ -11,7 +11,6 @@ export const createStudyController = async (req: Request, res: Response) => {
     const patientId = req.params.pid;
     const createStudyDto = req.body;
 
-    console.log(req.user, patientId);
     if (!uid || !patientId)
       return res.status(401).json(NewResponse(401, "uid and sid are required"));
 
