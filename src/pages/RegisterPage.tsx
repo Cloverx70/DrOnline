@@ -217,7 +217,7 @@ const RegisterPage = () => {
             <div className="w-full px-6 md:px-10 mt-6 flex flex-col gap-4">
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-2xl bg-custom-blue text-white hover:bg-gray-200 hover:text-black transition"
+                className="w-full py-2.5 rounded-2xl flex items-center justify-center bg-custom-blue text-white hover:bg-gray-200 hover:text-black transition"
               >
                 {isPending ? <Spinner /> : "Register"}
               </button>

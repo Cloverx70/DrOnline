@@ -119,6 +119,12 @@ export const FooterServiceLinks = [
   { label: "Privacy Policy", icon: FaLongArrowAltRight },
 ];
 
+export const staticLinks = [
+  { label: "Forums", to: "/fourms" },
+  { label: "About us", to: "/about-us" },
+  { label: "Contact us", to: "/contact-us" },
+];
+
 export const NavOptions = [
   {
     label: "Doctors",
@@ -161,7 +167,7 @@ export const Fourms = [
       "Request an appointment with your preferred doctor quickly and easily.",
     icon: FaCalendarCheck,
     button: "Request Appointment",
-    link: "/appointment-request",
+    link: "/doctors",
   },
   {
     title: "Emergency Fast Form",
@@ -169,7 +175,7 @@ export const Fourms = [
       "For urgent concerns—send a quick message and we’ll contact you immediately.",
     icon: FaFirstAid,
     button: "Send Emergency Message",
-    link: "/emergency-form",
+    link: "/contact-us",
   },
   {
     title: "Medical History Form",
@@ -185,7 +191,7 @@ export const Fourms = [
       "Tell us about your experience so we can continue improving our care.",
     icon: FaRegCommentDots,
     button: "Give Feedback",
-    link: "/feedback",
+    link: "/contact-us",
   },
   {
     title: "Insurance Information",

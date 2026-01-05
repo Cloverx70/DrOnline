@@ -9,7 +9,7 @@ import {
 
 import { IoMedicalOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import { NavOptions } from "@/constants";
+import { NavOptions, staticLinks } from "@/constants";
 import NavsheetOption from "./NavsheetOption";
 import { Logout, type User } from "@/api/auth";
 import { motion } from "framer-motion";
@@ -118,11 +118,23 @@ const Navbar = ({ user }: INavbarProps) => {
                   Navigation Bar
                 </p>
                 <div className="flex-1 flex flex-col items-start">
+                  <div className="flex flex-col w-full md:hidden">
+                    {staticLinks.map((o, i) => (
+                      <div
+                        key={`static-${i}`}
+                        onClick={() => setNavOpen(false)}
+                        className="w-full flex"
+                      >
+                        <NavsheetOption label={o.label} to={o.to} />
+                      </div>
+                    ))}
+                  </div>
+
                   {doctorStatusNavOptions.map((o, i) => (
                     <div
                       key={i}
                       onClick={() => setNavOpen(false)}
-                      className="w-full  flex"
+                      className="w-full flex"
                     >
                       <NavsheetOption label={o.label} to={o.to} />
                     </div>

@@ -32,3 +32,24 @@ export const SendPatientMessage = async (
     handleError(error);
   }
 };
+
+export const SendContactUsMessage = async (
+  name: string,
+  email: string,
+  subject: string,
+  message: string
+) => {
+  try {
+    const res: AxiosResponse = await AxiosInstace.post("/mail/contact-us", {
+      name,
+      email,
+      subject,
+      message,
+    });
+
+    if (res.status !== 201)
+      throw new Error(res.data.message || "something wrong happened");
+  } catch (error) {
+    handleError(error);
+  }
+};

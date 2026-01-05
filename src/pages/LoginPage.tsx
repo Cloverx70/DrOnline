@@ -146,7 +146,7 @@ const LoginPage = () => {
             <div className="px-6 sm:px-10 mt-8 flex flex-col gap-4">
               <button
                 type="submit"
-                className="w-full py-3 rounded-2xl bg-custom-blue text-custom-white hover:bg-gray-200 hover:text-custom-black transition"
+                className="w-full py-3 rounded-2xl bg-custom-blue text-custom-white hover:bg-gray-200 hover:text-custom-black transition flex items-center justify-center"
               >
                 {isPending ? <Spinner /> : "Login"}
               </button>

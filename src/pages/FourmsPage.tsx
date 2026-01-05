@@ -1,5 +1,6 @@
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Fourms } from "@/constants";
+import { Link } from "react-router-dom";
 import SplitText from "@/components/SplitText";
 import { motion } from "framer-motion";
 
@@ -45,10 +46,13 @@ const FourmsPage = () => {
                   {form.description}
                 </p>
 
-                <button className="mt-auto flex items-center gap-2 text-white bg-custom-blue px-4 py-2 rounded-md font-semibold text-sm hover:bg-custom-black transition-all">
+                <Link
+                  to={form.link}
+                  className="mt-auto cursor-pointer flex items-center gap-2 text-white bg-custom-blue px-4 py-2 rounded-md font-semibold text-sm hover:bg-custom-black transition-all"
+                >
                   {form.button}
                   <FaLongArrowAltRight />
-                </button>
+                </Link>
               </motion.div>
             );
           })}
