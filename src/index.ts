@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_ORIGIN,
+    origin: ["https://dr-online.xyz", "https://www.dr-online.xyz"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
