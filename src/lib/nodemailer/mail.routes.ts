@@ -1,8 +1,10 @@
+import { sendContactUsMessage, sendPatientMessage } from "./mail.controller.js";
+
 import { Router } from "express";
-import { sendPatientMessage } from "./mail.controller.js";
 
 const router = Router();
 
 router.post("/patient-message", sendPatientMessage);
+router.post("/contact-us", sendContactUsMessage);
 
 export default router;

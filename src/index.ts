@@ -20,8 +20,8 @@ const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
-  process.env.FRONTEND_ORIGIN!, // https://dr-online.xyz
-  "https://www.dr-online.xyz", // add www version manually
+  process.env.FRONTEND_ORIGIN!,
+  "https://www.dr-online.xyz",
 ];
 
 app.use(
