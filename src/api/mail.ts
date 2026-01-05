@@ -7,10 +7,10 @@ export const SendPatientMessage = async (
   email: string,
   subject: string,
   message: string,
-  doctorEmail: string
+  to: string
 ) => {
   try {
-    if (!doctorEmail) {
+    if (!to) {
       return;
     }
 
@@ -21,7 +21,7 @@ export const SendPatientMessage = async (
         email,
         subject,
         message,
-        doctorEmail,
+        to,
       },
       { withCredentials: true }
     );
