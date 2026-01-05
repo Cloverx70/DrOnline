@@ -27,9 +27,11 @@ export const login = async (req: Request, res: Response) => {
   });
 
   res.cookie("chiah_token", token, {
-    httpOnly: false, // if frontend needs JS access
-    secure: true, // must be true for cross-site cookies on HTTPS
-    sameSite: "none", // allows cross-site usage
+    httpOnly: true, // secure from JS access
+    secure: true, // HTTPS only
+    sameSite: "none", // because frontend and backend are different subdomains
+    domain: ".dr-online.xyz", // notice the dot before domain → allows all subdomains
+    path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -38,9 +40,11 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = (req: Request, res: Response) => {
   res.clearCookie("chiah_token", {
-    httpOnly: false,
-    secure: true,
-    sameSite: "none",
+    httpOnly: true, // secure from JS access
+    secure: true, // HTTPS only
+    sameSite: "none", // because frontend and backend are different subdomains
+    domain: ".dr-online.xyz", // notice the dot before domain → allows all subdomains
+    path: "/",
   });
 
   return res.status(200).json({ message: "Logged out" });

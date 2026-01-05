@@ -19,9 +19,14 @@ const app = express();
 
 app.use(express.json());
 
+const allowedOrigins = [
+  process.env.FRONTEND_ORIGIN!, // https://dr-online.xyz
+  "https://www.dr-online.xyz", // add www version manually
+];
+
 app.use(
   cors({
-    origin: ["https://dr-online.xyz", "https://www.dr-online.xyz"],
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
